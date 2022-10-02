@@ -14,5 +14,6 @@ const Contragents = sequelize.define('contragents', {
 })
 
 module.exports = {
-    User
+    User,
+    Contragents
 }
