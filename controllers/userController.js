@@ -11,12 +11,12 @@ const jwtGenerate = (id, email, role) => {
 class UserController {
     
     async login(req, res, next) {
-        const {email, password} = req.body;
+        const {email, password, role} = req.body;
         const user = await User.findOne({where: {email}});
         if (!user) {
             next(ApiError.badRequest('Пользователь не найден'))
         }
-        console.log(user)
+
         const comparePassword = bcrypt.compareSync(password, user.password);
 
         if (!comparePassword) {
@@ -44,8 +44,13 @@ class UserController {
     }
 
     async auth(req, res, next) {
-        
+        const token = jwtGenerate(req.user.id, req.user.email, req.user.role)
+        return res.json({token})
+    }
 
+    async getAll(req, res, next) {
+        const users = await User.findAll()
+        return res.json(users)
     }
 }
 

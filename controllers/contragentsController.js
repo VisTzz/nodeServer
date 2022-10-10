@@ -9,7 +9,7 @@ class ContragentsController {
             return res.json(contragents)
         } catch (e) {
             next(ApiError.badRequest(e.message))
-        }
+        } 
         
     }
 
